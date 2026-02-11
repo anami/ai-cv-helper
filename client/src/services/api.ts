@@ -19,7 +19,8 @@ export function sendChat(
   message: string,
   cvText: string,
   jobContext: Partial<JobContext>,
-  model: string
+  model: string,
+  signal?: AbortSignal
 ) {
   return fetch("/api/chat", {
     method: "POST",
@@ -30,5 +31,6 @@ export function sendChat(
       job_context: jobContext,
       model,
     }),
+    signal,
   });
 }

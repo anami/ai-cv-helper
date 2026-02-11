@@ -6,7 +6,7 @@ export interface JobContext {
 }
 
 export interface ChatMessage {
-  role: "user" | "assistant" | "system" | "error";
+  role: "user" | "assistant" | "system" | "error" | "warning";
   content: string;
 }
 

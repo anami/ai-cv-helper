@@ -3,6 +3,7 @@ interface CVPanelProps {
   setCvText: (text: string) => void;
   fileInputRef: React.RefObject<HTMLInputElement | null>;
   onFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  width: number;
 }
 
 export function CVPanel({
@@ -10,9 +11,10 @@ export function CVPanel({
   setCvText,
   fileInputRef,
   onFileUpload,
+  width,
 }: CVPanelProps) {
   return (
-    <aside className="w-80 bg-white border-r border-gray-200 flex flex-col">
+    <aside className="bg-white border-r border-gray-200 flex flex-col shrink-0" style={{ width }}>
       <div className="p-4 border-b border-gray-200">
         <h2 className="text-lg font-semibold text-gray-800 mb-3">Your CV</h2>
         <div className="space-y-2">

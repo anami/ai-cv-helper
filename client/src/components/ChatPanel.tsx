@@ -16,6 +16,7 @@ interface ChatPanelProps {
   setCurrentMessage: (msg: string) => void;
   isLoading: boolean;
   onSend: () => void;
+  onStop: () => void;
   chatEndRef: React.RefObject<HTMLDivElement | null>;
 }
 
@@ -25,6 +26,7 @@ export function ChatPanel({
   setCurrentMessage,
   isLoading,
   onSend,
+  onStop,
   chatEndRef,
 }: ChatPanelProps) {
   return (
@@ -70,13 +72,22 @@ export function ChatPanel({
             className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             disabled={isLoading}
           />
-          <button
-            onClick={onSend}
-            disabled={isLoading || !currentMessage.trim()}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
-          >
-            Send
-          </button>
+          {isLoading ? (
+            <button
+              onClick={onStop}
+              className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors"
+            >
+              Stop
+            </button>
+          ) : (
+            <button
+              onClick={onSend}
+              disabled={!currentMessage.trim()}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
+            >
+              Send
+            </button>
+          )}
         </div>
       </div>
     </main>

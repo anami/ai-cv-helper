@@ -19,6 +19,7 @@ export function useChat(
   const [currentMessage, setCurrentMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -26,6 +27,10 @@ export function useChat(
 
   const addSystemMessage = (content: string) => {
     setMessages((prev) => [...prev, { role: "system", content }]);
+  };
+
+  const addWarningMessage = (content: string) => {
+    setMessages((prev) => [...prev, { role: "warning", content }]);
   };
 
   const sendMessage = async () => {
@@ -46,11 +51,15 @@ export function useChat(
           ? jobContext
           : { freeText: jobContext.freeText };
 
+      const controller = new AbortController();
+      abortRef.current = controller;
+
       const response = await sendChat(
         userMessage,
         cvText,
         context,
-        selectedModel
+        selectedModel,
+        controller.signal
       );
 
       const reader = response.body?.getReader();
@@ -90,11 +99,20 @@ export function useChat(
         }
       }
     } catch (error) {
-      const msg = error instanceof Error ? error.message : "Unknown error";
-      setMessages((prev) => [...prev, { role: "error", content: `Error: ${msg}` }]);
+      if (error instanceof DOMException && error.name === "AbortError") {
+        // User stopped generation — no error message needed
+      } else {
+        const msg = error instanceof Error ? error.message : "Unknown error";
+        setMessages((prev) => [...prev, { role: "error", content: `Error: ${msg}` }]);
+      }
     } finally {
+      abortRef.current = null;
       setIsLoading(false);
     }
+  };
+
+  const stopGenerating = () => {
+    abortRef.current?.abort();
   };
 
   return {
@@ -103,8 +121,10 @@ export function useChat(
     setCurrentMessage,
     isLoading,
     sendMessage,
+    stopGenerating,
     chatEndRef,
     scrollToBottom,
     addSystemMessage,
+    addWarningMessage,
   };
 }

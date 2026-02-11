@@ -7,6 +7,7 @@ interface ChatMessageProps {
 const roleStyles: Record<string, string> = {
   user: "bg-blue-600 text-white",
   system: "bg-green-100 text-green-800 border border-green-200",
+  warning: "bg-amber-100 text-amber-800 border border-amber-200",
   error: "bg-red-100 text-red-800 border border-red-200",
   assistant: "bg-white text-gray-800 shadow-sm border border-gray-200",
 };
