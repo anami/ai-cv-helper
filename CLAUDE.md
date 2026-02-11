@@ -18,7 +18,7 @@ npm install
 npm run dev
 
 # Build client for production
-npm run build
+npm run build -w client
 
 # Production (serves client from Fastify on :8080)
 npm start
@@ -45,8 +45,8 @@ npm start
 ### Frontend (`client/src/`)
 - Vite + React + TypeScript + Tailwind v4
 - `App.tsx` — Layout + state orchestration
-- `hooks/` — `useOllamaStatus`, `useChat` (SSE streaming), `useFileUpload`
-- `components/` — Header, CVPanel, ChatPanel, ChatMessage, JobPanel, TypingIndicator
+- `hooks/` — `useOllamaStatus`, `useChat` (SSE streaming + abort), `useFileUpload`, `useResizable`
+- `components/` — Header, CVPanel, ChatPanel, ChatMessage, JobPanel, TypingIndicator, DragHandle
 - `services/api.ts` — Fetch wrappers with relative URLs (`/api/...`)
 - Vite dev server proxies `/api` to `localhost:8080`
 
@@ -60,15 +60,22 @@ Prompts are externalized to markdown files for easy editing without code changes
   - `{{USER_MESSAGE}}` — User's query
 
 - **`prompt_instructions.md`** — Instruction sets parsed by section headers:
-  - `## When CV and Job Context are both provided`
-  - `## When only CV is provided`
-  - `## When only Job Context is provided`
-  - `## When no context is provided`
+  - `## When CV and Job Context are both provided` — Full personalized assistance
+  - `## When only CV is provided` — Asks user to also provide job context
+  - `## When only Job Context is provided` — Asks user to also upload CV
+  - `## When no context is provided` — Asks user to provide both CV and job context
 
-The `buildSystemPrompt()` function in `server/src/services/promptBuilder.ts` loads these templates, parses instruction sections, and assembles the final prompt. A fallback function exists if templates are missing.
+The assistant requires **both** a CV and job context before providing any assistance. The `buildSystemPrompt()` function in `server/src/services/promptBuilder.ts` loads these templates, parses instruction sections, and assembles the final prompt. A fallback function exists if templates are missing.
 
 ## Key Configuration
 
 - `OLLAMA_GENERATE_URL` — Ollama generate endpoint (default: `http://localhost:11434/api/generate`)
 - `UPLOAD_FOLDER` — Temporary storage for uploads (default: `uploads/`)
 - `MAX_FILE_SIZE` — Max upload size (default: 16MB)
+
+## Notable UI Features
+
+- **Resizable side panels** — CV and Job Context panels can be dragged to resize (200px–600px)
+- **Stop button** — Appears during generation, aborts the SSE stream and keeps partial output
+- **Ollama warning** — Amber warning message posted to chat when Ollama is unreachable on startup
+- **GitHub Pages** — Static landing page in `docs/index.html`
