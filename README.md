@@ -24,10 +24,10 @@ An intelligent, locally-running web application that helps you improve your CV, 
 
 Before you start, make sure you have:
 
-1. **Python 3.8 or higher** installed
-   - Windows: Download from [python.org](https://www.python.org/downloads/)
-   - macOS: `brew install python3` or download from python.org
-   - Linux: Usually pre-installed, or `sudo apt install python3 python3-pip`
+1. **Node.js 20 or higher** installed
+   - Windows/macOS/Linux: Download from [nodejs.org](https://nodejs.org/)
+   - macOS: `brew install node`
+   - Linux: See [NodeSource](https://github.com/nodesource/distributions)
 
 2. **Ollama** installed and running
    - Download from [ollama.com](https://ollama.com)
@@ -36,29 +36,26 @@ Before you start, make sure you have:
 
 ## Quick Start
 
-### Windows
-
-1. Double-click `start.bat`
-2. The script will install dependencies and start the server
-3. Open your browser to `http://localhost:5000`
-
-### macOS / Linux
+### Using the startup script
 
 1. Open Terminal in this folder
 2. Run: `./start.sh`
-3. Open your browser to `http://localhost:5000`
+3. Open your browser to `http://localhost:5173`
 
-### Manual Start (All Platforms)
+### Manual Start
 
 ```bash
 # Install dependencies
-pip install -r requirements.txt
+npm install
 
-# Start the application
-python app.py  # or python3 app.py on macOS/Linux
+# Start development servers (Vite on :5173 + Fastify on :8080)
+npm run dev
+
+# Or for production
+npm run build && npm start
 ```
 
-Then open `http://localhost:5000` in your browser.
+In development, open `http://localhost:5173`. In production, open `http://localhost:8080`.
 
 ## How to Use
 
@@ -109,25 +106,34 @@ ollama pull llama3.2
 - Pull a model: `ollama pull llama3.2`
 - Verify with: `ollama list`
 
-### Port 5000 already in use
-- Edit `app.py` and change the port number in the last line
-- Change `port=5000` to another port like `port=5001`
-
-### Dependencies installation fails
-- Try upgrading pip: `pip install --upgrade pip`
-- On macOS/Linux, use `pip3` instead of `pip`
+### Port 8080 already in use
+- Edit `server/src/config.ts` and change the `PORT` constant
 
 ## File Structure
 
 ```
-cv-assistant-app/
-├── app.py              # Flask backend server
-├── index.html          # Frontend interface
-├── requirements.txt    # Python dependencies
-├── start.bat          # Windows startup script
-├── start.sh           # macOS/Linux startup script
-├── uploads/           # Temporary file storage (auto-created)
-└── README.md          # This file
+ai-cv-helper/
+├── package.json              # npm workspaces root
+├── tsconfig.base.json        # Shared TypeScript config
+├── prompt_template.md        # Prompt template
+├── prompt_instructions.md    # Prompt instruction sets
+├── start.sh                  # Startup script
+├── server/                   # Fastify backend (TypeScript)
+│   ├── package.json
+│   └── src/
+│       ├── index.ts          # Server bootstrap
+│       ├── config.ts         # Constants
+│       ├── routes/           # API route handlers
+│       └── services/         # Business logic
+├── client/                   # Vite + React frontend (TypeScript)
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── src/
+│       ├── App.tsx           # Main app component
+│       ├── components/       # UI components
+│       ├── hooks/            # React hooks
+│       └── services/         # API client
+└── README.md                 # This file
 ```
 
 ## System Requirements
@@ -168,4 +174,4 @@ If you encounter issues:
 
 ---
 
-Built with ❤️ using Flask, React, and Ollama
+Built with ❤️ using Fastify, React, and Ollama

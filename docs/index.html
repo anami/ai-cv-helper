@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV Assistant - AI-Powered Career Helper</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --blue-600: #2563eb;
+        --blue-700: #1d4ed8;
+        --blue-50: #eff6ff;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
+        --green-600: #16a34a;
+        --green-50: #f0fdf4;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: var(--gray-800);
+        line-height: 1.6;
+        background: var(--gray-50);
+      }
+
+      /* Hero */
+      .hero {
+        background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
+        color: white;
+        padding: 5rem 2rem;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        opacity: 0.9;
+        max-width: 640px;
+        margin: 0 auto 2rem;
+      }
+
+      .hero-badges {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        padding: 0.375rem 0.875rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+
+      /* Sections */
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      section {
+        padding: 4rem 0;
+      }
+
+      section + section {
+        border-top: 1px solid var(--gray-200);
+      }
+
+      h2 {
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--gray-900);
+      }
+
+      h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--gray-900);
+      }
+
+      /* Feature cards */
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .card {
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+      }
+
+      .card-icon {
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .card p {
+        color: var(--gray-600);
+        font-size: 0.9375rem;
+      }
+
+      /* App preview */
+      .app-preview {
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .preview-bar {
+        background: linear-gradient(to right, var(--blue-600), var(--blue-700));
+        padding: 0.75rem 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        font-weight: 600;
+        font-size: 0.9375rem;
+      }
+
+      .preview-bar .status {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        font-weight: 400;
+        font-size: 0.8125rem;
+      }
+
+      .preview-bar .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #4ade80;
+      }
+
+      .preview-body {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        min-height: 320px;
+      }
+
+      .preview-panel {
+        padding: 1rem;
+        border-right: 1px solid var(--gray-200);
+      }
+
+      .preview-panel:last-child {
+        border-right: none;
+        border-left: 1px solid var(--gray-200);
+      }
+
+      .preview-panel-title {
+        font-weight: 600;
+        font-size: 0.8125rem;
+        color: var(--gray-700);
+        margin-bottom: 0.75rem;
+      }
+
+      .preview-placeholder {
+        background: var(--gray-100);
+        border: 1px dashed var(--gray-200);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        text-align: center;
+        color: var(--gray-600);
+        font-size: 0.8125rem;
+      }
+
+      .preview-chat {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .preview-bubble {
+        padding: 0.625rem 0.875rem;
+        border-radius: 0.5rem;
+        font-size: 0.8125rem;
+        max-width: 80%;
+        line-height: 1.5;
+      }
+
+      .preview-bubble.assistant {
+        background: var(--gray-100);
+        color: var(--gray-700);
+        align-self: flex-start;
+      }
+
+      .preview-bubble.user {
+        background: var(--blue-600);
+        color: white;
+        align-self: flex-end;
+      }
+
+      /* Steps */
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .step {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .step-number {
+        flex-shrink: 0;
+        width: 2rem;
+        height: 2rem;
+        background: var(--blue-600);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.875rem;
+      }
+
+      .step-content p {
+        color: var(--gray-600);
+        font-size: 0.9375rem;
+      }
+
+      /* Code blocks */
+      pre {
+        background: var(--gray-900);
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+        font-size: 0.875rem;
+        line-height: 1.7;
+        margin-top: 0.5rem;
+      }
+
+      code {
+        font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas,
+          monospace;
+      }
+
+      .inline-code {
+        background: var(--gray-100);
+        border: 1px solid var(--gray-200);
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.25rem;
+        font-size: 0.8125rem;
+      }
+
+      /* How to use */
+      .usage-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .usage-card {
+        background: white;
+        border: 1px solid var(--gray-200);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+      }
+
+      .usage-card h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .usage-card ul {
+        margin-top: 0.5rem;
+        padding-left: 1.25rem;
+        color: var(--gray-600);
+        font-size: 0.9375rem;
+      }
+
+      .usage-card ul li {
+        margin-bottom: 0.25rem;
+      }
+
+      /* Quick prompts */
+      .prompts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+      }
+
+      .prompt-chip {
+        background: var(--blue-50);
+        border: 1px solid var(--blue-600);
+        color: var(--blue-700);
+        padding: 0.375rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.8125rem;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 2rem;
+        color: var(--gray-600);
+        font-size: 0.875rem;
+        border-top: 1px solid var(--gray-200);
+      }
+
+      footer a {
+        color: var(--blue-600);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 640px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .preview-body {
+          grid-template-columns: 1fr;
+        }
+
+        .preview-panel {
+          border-right: none;
+          border-bottom: 1px solid var(--gray-200);
+        }
+
+        .preview-panel:last-child {
+          border-left: none;
+          border-bottom: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hero -->
+    <div class="hero">
+      <h1>CV Assistant</h1>
+      <p>
+        An AI-powered career helper that runs entirely on your machine. Improve
+        your CV, write cover letters, and ace application questions — privately.
+      </p>
+      <div class="hero-badges">
+        <span class="badge">100% Local</span>
+        <span class="badge">Powered by Ollama</span>
+        <span class="badge">Open Source</span>
+        <span class="badge">Privacy-First</span>
+      </div>
+    </div>
+
+    <!-- App Preview -->
+    <section>
+      <div class="container">
+        <h2>How It Looks</h2>
+        <div class="app-preview">
+          <div class="preview-bar">
+            <span>CV Assistant</span>
+            <span class="status"><span class="dot"></span> Ollama Running</span>
+          </div>
+          <div class="preview-body">
+            <div class="preview-panel">
+              <div class="preview-panel-title">Your CV</div>
+              <div class="preview-placeholder">
+                Upload a PDF, DOCX, or TXT file<br />or paste your CV text here
+              </div>
+            </div>
+            <div class="preview-chat">
+              <div class="preview-bubble assistant">
+                Hello! I'm your CV Assistant. Upload your CV and provide job
+                details to get started.
+              </div>
+              <div class="preview-bubble user">
+                Help me improve my CV for this role
+              </div>
+              <div class="preview-bubble assistant">
+                Based on your experience in full-stack development, I'd suggest
+                highlighting your React and Node.js projects more prominently...
+              </div>
+            </div>
+            <div class="preview-panel">
+              <div class="preview-panel-title">Job Context</div>
+              <div class="preview-placeholder">
+                Paste a job description<br />or fill in company, role &amp;
+                requirements
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section>
+      <div class="container">
+        <h2>Features</h2>
+        <div class="features">
+          <div class="card">
+            <div class="card-icon">&#9997;&#65039;</div>
+            <h3>CV Improvement</h3>
+            <p>
+              Get specific, actionable suggestions to strengthen your CV based on
+              the job you're applying for.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128221;</div>
+            <h3>Cover Letters</h3>
+            <p>
+              Generate tailored cover letters that connect your experience to job
+              requirements.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128172;</div>
+            <h3>Application Q&amp;A</h3>
+            <p>
+              Practice answering common interview and application questions with
+              AI guidance.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128274;</div>
+            <h3>Private &amp; Local</h3>
+            <p>
+              Everything runs on your machine. Your CV and job data never leave
+              your computer.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#9889;</div>
+            <h3>Real-Time Streaming</h3>
+            <p>
+              Responses stream token-by-token so you see results as they're
+              generated.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">&#128196;</div>
+            <h3>File Upload</h3>
+            <p>
+              Upload your CV as PDF, DOCX, or TXT. Text is extracted
+              automatically.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section>
+      <div class="container">
+        <h2>Quick Start</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Install Prerequisites</h3>
+              <p>
+                You need
+                <a href="https://nodejs.org/">Node.js 20+</a> and
+                <a href="https://ollama.com/">Ollama</a> installed on your
+                machine.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Pull an AI Model</h3>
+              <pre><code>ollama pull llama3.2</code></pre>
+              <p style="margin-top: 0.5rem">
+                Mistral seems to work quite well: 
+                <code class="inline-code">ollama pull mistral</code>
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Clone &amp; Install</h3>
+              <pre><code>git clone https://github.com/anami/ai-cv-helper.git
+cd ai-cv-helper
+npm install</code></pre>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Start the App</h3>
+              <pre><code>npm run dev</code></pre>
+              <p style="margin-top: 0.5rem">
+                Open
+                <code class="inline-code">http://localhost:5173</code> in your
+                browser.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Use -->
+    <section>
+      <div class="container">
+        <h2>How to Use</h2>
+        <div class="usage-grid">
+          <div class="usage-card">
+            <h3>&#128195; Add Your CV</h3>
+            <ul>
+              <li>Click "Upload CV" (PDF, DOCX, or TXT)</li>
+              <li>Or paste your CV text into the left panel</li>
+            </ul>
+          </div>
+          <div class="usage-card">
+            <h3>&#127919; Add Job Context</h3>
+            <ul>
+              <li>
+                <strong>Free Text:</strong> Paste the full job description
+              </li>
+              <li>
+                <strong>Structured:</strong> Enter company, role &amp;
+                requirements separately
+              </li>
+            </ul>
+          </div>
+          <div class="usage-card">
+            <h3>&#128172; Start Chatting</h3>
+            <p
+              style="
+                color: var(--gray-600);
+                font-size: 0.9375rem;
+                margin-top: 0.5rem;
+              "
+            >
+              Type a question or use a quick prompt:
+            </p>
+            <div class="prompts">
+              <span class="prompt-chip">Improve my CV for this role</span>
+              <span class="prompt-chip">Write a cover letter</span>
+              <span class="prompt-chip">Suggest improvements</span>
+              <span class="prompt-chip">Key strengths from my CV</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section>
+      <div class="container">
+        <h2>Built With</h2>
+        <div class="features" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))">
+          <div class="card" style="text-align: center">
+            <h3>Fastify</h3>
+            <p>TypeScript backend</p>
+          </div>
+          <div class="card" style="text-align: center">
+            <h3>React + Vite</h3>
+            <p>TypeScript frontend</p>
+          </div>
+          <div class="card" style="text-align: center">
+            <h3>Tailwind CSS</h3>
+            <p>Utility-first styling</p>
+          </div>
+          <div class="card" style="text-align: center">
+            <h3>Ollama</h3>
+            <p>Local AI inference</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        Built with &#10084;&#65039; using Fastify, React, and Ollama &mdash;
+        <a href="https://github.com/anami/ai-cv-helper">View on GitHub</a>
+      </p>
+    </footer>
+  </body>
+</html>
