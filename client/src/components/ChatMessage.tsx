@@ -5,11 +5,11 @@ interface ChatMessageProps {
 }
 
 const roleStyles: Record<string, string> = {
-  user: "bg-blue-600 text-white",
-  system: "bg-green-100 text-green-800 border border-green-200",
-  warning: "bg-amber-100 text-amber-800 border border-amber-200",
-  error: "bg-red-100 text-red-800 border border-red-200",
-  assistant: "bg-white text-gray-800 shadow-sm border border-gray-200",
+  user: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md",
+  system: "bg-emerald-50 text-emerald-800 border border-emerald-200",
+  warning: "bg-amber-50 text-amber-800 border border-amber-200",
+  error: "bg-red-50 text-red-800 border border-red-200",
+  assistant: "bg-white text-slate-800 shadow-sm border border-slate-200",
 };
 
 export function ChatMessage({ message }: ChatMessageProps) {
@@ -19,7 +19,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
         message.role === "user" ? "justify-end" : "justify-start"
       }`}
     >
-      <div className={`max-w-[80%] rounded-lg px-4 py-3 ${roleStyles[message.role]}`}>
+      <div className={`max-w-[80%] rounded-xl px-4 py-3 ${roleStyles[message.role]}`}>
         <div className="whitespace-pre-wrap">{message.content}</div>
       </div>
     </div>

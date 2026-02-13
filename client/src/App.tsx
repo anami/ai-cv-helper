@@ -57,7 +57,7 @@ export function App() {
   }, [messages]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col bg-slate-100">
       <Header
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}

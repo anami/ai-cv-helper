@@ -14,13 +14,16 @@ export function CVPanel({
   width,
 }: CVPanelProps) {
   return (
-    <aside className="bg-white border-r border-gray-200 flex flex-col shrink-0" style={{ width }}>
-      <div className="p-4 border-b border-gray-200">
-        <h2 className="text-lg font-semibold text-gray-800 mb-3">Your CV</h2>
+    <aside className="bg-slate-50 border-r border-slate-200 flex flex-col shrink-0" style={{ width }}>
+      <div
+        className="p-4 border-b"
+        style={{ background: "linear-gradient(135deg, #334155, #475569)", borderBottomColor: "rgba(59,130,246,0.3)" }}
+      >
+        <h2 className="text-sm uppercase tracking-widest text-white/80 mb-3">Your CV</h2>
         <div className="space-y-2">
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            className="w-full btn-active-gradient text-white px-4 py-2 rounded-lg font-medium transition-colors hover:opacity-90"
           >
             Upload CV (PDF/DOCX)
           </button>
@@ -38,7 +41,7 @@ export function CVPanel({
           value={cvText}
           onChange={(e) => setCvText(e.target.value)}
           placeholder="Or paste your CV text here..."
-          className="w-full h-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+          className="w-full h-full p-3 border border-slate-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-sm"
         />
       </div>
     </aside>

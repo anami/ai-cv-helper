@@ -9,6 +9,18 @@ body {
     Ubuntu, Cantarell, sans-serif;
 }
 
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa, #f0abfc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-active-gradient {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
 .chat-message {
   animation: slideIn 0.3s ease-out;
 }
@@ -33,7 +45,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #94a3b8;
+  background-color: #60a5fa;
   margin: 0 2px;
   animation: typing 1.4s infinite;
 }

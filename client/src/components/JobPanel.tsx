@@ -16,39 +16,41 @@ export function JobPanel({
   width,
 }: JobPanelProps) {
   return (
-    <aside className="bg-white border-l border-gray-200 flex flex-col shrink-0" style={{ width }}>
-      <div className="p-4 border-b border-gray-200">
-        <h2 className="text-lg font-semibold text-gray-800 mb-3">
+    <aside className="bg-slate-50 border-l border-slate-200 flex flex-col shrink-0" style={{ width }}>
+      <div
+        className="p-4 border-b"
+        style={{ background: "linear-gradient(135deg, #334155, #475569)", borderBottomColor: "rgba(59,130,246,0.3)" }}
+      >
+        <h2 className="text-sm uppercase tracking-widest text-white/80 mb-3">
           Job Context
         </h2>
-        <div className="flex gap-2 mb-3">
-                    <button
+        <div className="flex gap-2 mb-0">
+          <button
             onClick={() => setInputMode("freetext")}
-            className={`flex-1 px-3 py-1.5 rounded text-sm font-medium transition-colors ${
+            className={`flex-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
               inputMode === "freetext"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ? "btn-active-gradient text-white"
+                : "bg-white/10 text-slate-300 hover:bg-white/20"
             }`}
           >
             Free Text
           </button>
           <button
             onClick={() => setInputMode("structured")}
-            className={`flex-1 px-3 py-1.5 rounded text-sm font-medium transition-colors ${
+            className={`flex-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
               inputMode === "structured"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ? "btn-active-gradient text-white"
+                : "bg-white/10 text-slate-300 hover:bg-white/20"
             }`}
           >
             Structured
           </button>
-
         </div>
       </div>
       <div className="flex-1 p-4 overflow-y-auto">
         {inputMode === "freetext" ? (
           <div className="flex flex-col h-full">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-700 mb-1">
               Job Description
             </label>
             <textarea
@@ -57,14 +59,14 @@ export function JobPanel({
                 setJobContext({ ...jobContext, freeText: e.target.value })
               }
               placeholder="Paste the entire job description or any relevant context here..."
-              className="w-full flex-1 px-3 py-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              
+              className="w-full flex-1 px-3 py-2 border border-slate-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-sm"
+
             />
           </div>
         ) : (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-700 mb-1">
                 Company
               </label>
               <input
@@ -74,11 +76,11 @@ export function JobPanel({
                   setJobContext({ ...jobContext, company: e.target.value })
                 }
                 placeholder="e.g., Google"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent text-sm"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-700 mb-1">
                 Role
               </label>
               <input
@@ -88,11 +90,11 @@ export function JobPanel({
                   setJobContext({ ...jobContext, role: e.target.value })
                 }
                 placeholder="e.g., Senior Software Engineer"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent text-sm"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-700 mb-1">
                 Requirements
               </label>
               <textarea
@@ -101,7 +103,7 @@ export function JobPanel({
                   setJobContext({ ...jobContext, requirements: e.target.value })
                 }
                 placeholder="Paste job requirements here..."
-                className="w-full h-32 px-3 py-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                className="w-full h-32 px-3 py-2 border border-slate-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-sm"
               />
             </div>
           </div>

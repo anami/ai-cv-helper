@@ -12,26 +12,43 @@ export function Header({
   ollamaStatus,
 }: HeaderProps) {
   return (
-    <header className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 shadow-lg">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <header
+      className="text-white p-4 shadow-lg relative overflow-hidden"
+      style={{ background: "linear-gradient(160deg, #0f172a, #1e3a5f, #2563eb)" }}
+    >
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at 70% 50%, rgba(99,102,241,0.15), transparent 60%)",
+        }}
+      />
+      <div className="max-w-7xl mx-auto flex items-center justify-between relative">
         <div>
-          <h1 className="text-2xl font-bold">AI Career Assistant</h1>
-          <p className="text-blue-100 text-sm">Powered by Ollama</p>
+          <h1 className="text-2xl font-bold">
+            AI <span className="gradient-text">Career Assistant</span>
+          </h1>
+          <p className="text-xs uppercase tracking-widest text-indigo-300">
+            Powered by Ollama
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <select
             value={selectedModel}
             onChange={(e) => setSelectedModel(e.target.value)}
-            className="bg-blue-800 text-white px-3 py-1.5 rounded text-sm border border-blue-500"
+            className="px-3 py-1.5 rounded-lg text-sm text-white border border-white/15 backdrop-blur-sm"
+            style={{ background: "rgba(255,255,255,0.08)" }}
             disabled={ollamaStatus !== "running"}
           >
             {availableModels.map((model) => (
-              <option key={model} value={model}>
+              <option key={model} value={model} className="bg-slate-900 text-white">
                 {model}
               </option>
             ))}
           </select>
-          <div className="flex items-center gap-2">
+          <div
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/15 backdrop-blur-sm"
+            style={{ background: "rgba(255,255,255,0.08)" }}
+          >
             <div
               className={`w-2 h-2 rounded-full ${
                 ollamaStatus === "running" ? "bg-green-400" : "bg-red-400"

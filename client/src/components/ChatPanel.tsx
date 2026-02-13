@@ -30,7 +30,7 @@ export function ChatPanel({
   chatEndRef,
 }: ChatPanelProps) {
   return (
-    <main className="flex-1 flex flex-col bg-gray-50">
+    <main className="flex-1 flex flex-col bg-slate-100">
       <div className="flex-1 overflow-y-auto p-6">
         <div className="max-w-3xl mx-auto space-y-4">
           {messages.map((msg, idx) => (
@@ -42,14 +42,14 @@ export function ChatPanel({
       </div>
 
       {/* Quick Prompts */}
-      <div className="px-6 py-3 bg-white border-t border-gray-200">
+      <div className="px-6 py-3 bg-slate-50 border-t border-slate-200">
         <div className="max-w-3xl mx-auto">
           <div className="flex gap-2 overflow-x-auto pb-2">
             {quickPrompts.map((prompt, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentMessage(prompt)}
-                className="flex-shrink-0 px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
+                className="flex-shrink-0 px-3 py-1.5 text-sm bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-full text-blue-700 transition-colors"
               >
                 {prompt}
               </button>
@@ -59,7 +59,7 @@ export function ChatPanel({
       </div>
 
       {/* Input Area */}
-      <div className="p-6 bg-white border-t border-gray-200">
+      <div className="p-6 bg-slate-50 border-t border-slate-200">
         <div className="max-w-3xl mx-auto flex gap-3">
           <input
             type="text"
@@ -69,13 +69,13 @@ export function ChatPanel({
               if (e.key === "Enter" && !e.shiftKey) onSend();
             }}
             placeholder="Ask me anything about your CV or job application..."
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="flex-1 px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent"
             disabled={isLoading}
           />
           {isLoading ? (
             <button
               onClick={onStop}
-              className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors"
+              className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition-colors"
             >
               Stop
             </button>
@@ -83,7 +83,7 @@ export function ChatPanel({
             <button
               onClick={onSend}
               disabled={!currentMessage.trim()}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
+              className="px-6 py-3 btn-active-gradient disabled:bg-gray-300 disabled:cursor-not-allowed disabled:shadow-none text-white rounded-xl font-medium transition-colors hover:opacity-90"
             >
               Send
             </button>
