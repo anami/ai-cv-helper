@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CV Assistant - AI-Powered Career Helper</title>
+    <title>AI Career Assistant</title>
     <style>
       *,
       *::before,
@@ -38,42 +38,101 @@
 
       /* Hero */
       .hero {
-        background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
+        background: linear-gradient(160deg, #0f172a 0%, #1e3a5f 40%, #2563eb 100%);
         color: white;
-        padding: 5rem 2rem;
+        padding: 5rem 2rem 0;
         text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 600px 400px at 20% 50%, rgba(59, 130, 246, 0.3), transparent),
+          radial-gradient(ellipse 500px 300px at 80% 30%, rgba(139, 92, 246, 0.2), transparent);
+        pointer-events: none;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-label {
+        display: inline-block;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(165, 180, 252, 0.9);
+        margin-bottom: 1.25rem;
       }
 
       .hero h1 {
-        font-size: 3rem;
+        font-size: 3.5rem;
         font-weight: 800;
-        margin-bottom: 1rem;
+        margin-bottom: 1.25rem;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+      }
+
+      .hero h1 .gradient-text {
+        background: linear-gradient(135deg, #60a5fa, #a78bfa, #f0abfc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
 
       .hero p {
         font-size: 1.25rem;
-        opacity: 0.9;
-        max-width: 640px;
+        opacity: 0.8;
+        max-width: 580px;
         margin: 0 auto 2rem;
+        line-height: 1.7;
+      }
+
+      .hero p strong {
+        color: #e0f2fe;
+        opacity: 1;
+        font-weight: 600;
       }
 
       .hero-badges {
         display: flex;
-        gap: 0.75rem;
+        gap: 0.625rem;
         justify-content: center;
         flex-wrap: wrap;
+        margin-bottom: 3.5rem;
       }
 
       .badge {
         display: inline-flex;
         align-items: center;
         gap: 0.375rem;
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         padding: 0.375rem 0.875rem;
         border-radius: 9999px;
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
         font-weight: 500;
+        backdrop-filter: blur(8px);
+      }
+
+      .hero-screenshot {
+        position: relative;
+        z-index: 1;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .hero-screenshot img {
+        width: 100%;
+        border-radius: 0.75rem 0.75rem 0 0;
+        box-shadow: 0 -4px 60px rgba(59, 130, 246, 0.25), 0 20px 60px rgba(0, 0, 0, 0.4);
+        display: block;
       }
 
       /* Sections */
@@ -127,101 +186,6 @@
       .card p {
         color: var(--gray-600);
         font-size: 0.9375rem;
-      }
-
-      /* App preview */
-      .app-preview {
-        background: white;
-        border: 1px solid var(--gray-200);
-        border-radius: 0.75rem;
-        overflow: hidden;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-      }
-
-      .preview-bar {
-        background: linear-gradient(to right, var(--blue-600), var(--blue-700));
-        padding: 0.75rem 1.25rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: white;
-        font-weight: 600;
-        font-size: 0.9375rem;
-      }
-
-      .preview-bar .status {
-        display: flex;
-        align-items: center;
-        gap: 0.375rem;
-        font-weight: 400;
-        font-size: 0.8125rem;
-      }
-
-      .preview-bar .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #4ade80;
-      }
-
-      .preview-body {
-        display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
-        min-height: 320px;
-      }
-
-      .preview-panel {
-        padding: 1rem;
-        border-right: 1px solid var(--gray-200);
-      }
-
-      .preview-panel:last-child {
-        border-right: none;
-        border-left: 1px solid var(--gray-200);
-      }
-
-      .preview-panel-title {
-        font-weight: 600;
-        font-size: 0.8125rem;
-        color: var(--gray-700);
-        margin-bottom: 0.75rem;
-      }
-
-      .preview-placeholder {
-        background: var(--gray-100);
-        border: 1px dashed var(--gray-200);
-        border-radius: 0.5rem;
-        padding: 1.5rem;
-        text-align: center;
-        color: var(--gray-600);
-        font-size: 0.8125rem;
-      }
-
-      .preview-chat {
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-
-      .preview-bubble {
-        padding: 0.625rem 0.875rem;
-        border-radius: 0.5rem;
-        font-size: 0.8125rem;
-        max-width: 80%;
-        line-height: 1.5;
-      }
-
-      .preview-bubble.assistant {
-        background: var(--gray-100);
-        color: var(--gray-700);
-        align-self: flex-start;
-      }
-
-      .preview-bubble.user {
-        background: var(--blue-600);
-        color: white;
-        align-self: flex-end;
       }
 
       /* Steps */
@@ -350,25 +314,15 @@
       /* Responsive */
       @media (max-width: 640px) {
         .hero h1 {
-          font-size: 2rem;
+          font-size: 2.25rem;
         }
 
         .hero p {
           font-size: 1rem;
         }
 
-        .preview-body {
-          grid-template-columns: 1fr;
-        }
-
-        .preview-panel {
-          border-right: none;
-          border-bottom: 1px solid var(--gray-200);
-        }
-
-        .preview-panel:last-child {
-          border-left: none;
-          border-bottom: none;
+        .hero-screenshot {
+          max-width: 100%;
         }
       }
     </style>
@@ -376,59 +330,26 @@
   <body>
     <!-- Hero -->
     <div class="hero">
-      <h1>CV Assistant</h1>
-      <p>
-        An AI-powered career helper that runs entirely on your machine. Improve
-        your CV, write cover letters, and ace application questions — privately.
-      </p>
-      <div class="hero-badges">
-        <span class="badge">100% Local</span>
-        <span class="badge">Powered by Ollama</span>
-        <span class="badge">Open Source</span>
-        <span class="badge">Privacy-First</span>
-      </div>
-    </div>
-
-    <!-- App Preview -->
-    <section>
-      <div class="container">
-        <h2>How It Looks</h2>
-        <div class="app-preview">
-          <div class="preview-bar">
-            <span>CV Assistant</span>
-            <span class="status"><span class="dot"></span> Ollama Running</span>
-          </div>
-          <div class="preview-body">
-            <div class="preview-panel">
-              <div class="preview-panel-title">Your CV</div>
-              <div class="preview-placeholder">
-                Upload a PDF, DOCX, or TXT file<br />or paste your CV text here
-              </div>
-            </div>
-            <div class="preview-chat">
-              <div class="preview-bubble assistant">
-                Hello! I'm your CV Assistant. Upload your CV and provide job
-                details to get started.
-              </div>
-              <div class="preview-bubble user">
-                Help me improve my CV for this role
-              </div>
-              <div class="preview-bubble assistant">
-                Based on your experience in full-stack development, I'd suggest
-                highlighting your React and Node.js projects more prominently...
-              </div>
-            </div>
-            <div class="preview-panel">
-              <div class="preview-panel-title">Job Context</div>
-              <div class="preview-placeholder">
-                Paste a job description<br />or fill in company, role &amp;
-                requirements
-              </div>
-            </div>
-          </div>
+      <div class="hero-content">
+        <span class="hero-label">Open Source &middot; Privacy-First</span>
+        <h1>Your AI <span class="gradient-text">Career Assistant</span></h1>
+        <p>
+          Improve your CV, write cover letters, and ace application questions
+          — powered by Ollama, running <strong>entirely on your machine</strong>.
+          
+        </p>
+        <p>Your data never leaves your computer.</p>
+        <div class="hero-badges">
+          <span class="badge">100% Local</span>
+          <span class="badge">Powered by Ollama</span>
+          <span class="badge">Open Source</span>
+          <span class="badge">Privacy-First</span>
         </div>
       </div>
-    </section>
+      <div class="hero-screenshot">
+        <img src="cv_assistant_blurred.png" alt="CV Assistant application screenshot" />
+      </div>
+    </div>
 
     <!-- Features -->
     <section>
@@ -518,17 +439,24 @@
           <div class="step">
             <div class="step-number">3</div>
             <div class="step-content">
-              <h3>Clone &amp; Install</h3>
+              <h3>Clone the project</h3>
               <pre><code>git clone https://github.com/anami/ai-cv-helper.git
 cd ai-cv-helper
-npm install</code></pre>
+</code></pre>
             </div>
           </div>
           <div class="step">
             <div class="step-number">4</div>
             <div class="step-content">
               <h3>Start the App</h3>
-              <pre><code>npm run dev</code></pre>
+              <p>On Windows:</p>
+              <pre><code>start.bat</code></pre>
+              <p style="margin-top: 0.5rem">On Linux / macOS:</p>
+              <pre><code>./start.sh</code></pre>
+
+              <p style="margin-top: 0.5rem">
+                This will install the dependencies and run the app.
+              </p>
               <p style="margin-top: 0.5rem">
                 Open
                 <code class="inline-code">http://localhost:5173</code> in your

@@ -15,8 +15,8 @@ export function Header({
     <header className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 shadow-lg">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">CV Assistant</h1>
-          <p className="text-blue-100 text-sm">AI-Powered Career Helper</p>
+          <h1 className="text-2xl font-bold">AI Career Assistant</h1>
+          <p className="text-blue-100 text-sm">Powered by Ollama</p>
         </div>
         <div className="flex items-center gap-3">
           <select

@@ -5,7 +5,7 @@ import { sendChat } from "../services/api";
 const WELCOME_MESSAGE: ChatMessage = {
   role: "assistant",
   content:
-    "Hello! I'm your CV Assistant. Upload or paste your CV and provide job details to get started. I can help you:\n\n\u2022 Improve your CV\n\u2022 Write cover letters\n\u2022 Answer application questions\n\nWhat would you like help with today?",
+    "Hello! I'm your AI Career Assistant. Upload or paste your CV and provide job details to get started. I can help you:\n\n\u2022 Improve your CV\n\u2022 Write cover letters\n\u2022 Answer application questions\n\nWhat would you like help with today?",
 };
 
 export function useChat(

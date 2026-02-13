@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "================================================"
-echo "CV Assistant - AI-Powered Career Helper"
+echo "AI Career Assistant - AI-Powered Career Helper"
 echo "================================================"
 echo ""
 
@@ -21,7 +21,7 @@ echo "Please make sure Ollama is running!"
 echo "If not, start Ollama in another terminal with: ollama serve"
 echo ""
 
-echo "[3/3] Starting CV Assistant..."
+echo "[3/3] Starting AI Career Assistant..."
 echo ""
 echo "================================================"
 echo "Dev server starting at: http://localhost:5173"

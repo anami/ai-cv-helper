@@ -41,7 +41,7 @@ app.listen({ port: PORT, host: "0.0.0.0" }, (err) => {
     process.exit(1);
   }
   console.log("=".repeat(60));
-  console.log("CV Assistant Starting...");
+  console.log("AI Career Assistant Starting...");
   console.log("=".repeat(60));
   console.log(`Server running at: http://localhost:${PORT}`);
   console.log("Make sure Ollama is running before using the app!");
